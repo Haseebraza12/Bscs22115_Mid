@@ -1,0 +1,82 @@
+.header {
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .header.light {
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-container {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .logo-image {
+    height: 50px; /* Adjust this value based on your logo */
+    width: auto;
+    object-fit: contain;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      padding: 0.5rem 1rem;
+    }
+  
+    .logo-image {
+      height: 40px;
+    }
+  
+    .nav-links {
+      gap: 1rem;
+    }
+  }
