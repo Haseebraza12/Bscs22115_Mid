@@ -7,7 +7,7 @@ function Footer() {
   return (
     <footer className={`footer ${isDarkMode ? 'dark' : 'light'}`}>
       <div className="footer-content">
-        <p>&copy; 2024 Movie Explorer. All rights reserved.</p>
+        <p>&copy; 2024 Movie Explorer.By Haseeb.</p>
         <div className="footer-links">
           <a href="#">About</a>
           <a href="#">Privacy Policy</a>
