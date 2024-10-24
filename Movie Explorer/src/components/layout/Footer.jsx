@@ -1,4 +1,5 @@
 import { useTheme } from '../../context/ThemeContext';
+import './Footer.css';
 
 function Footer() {
   const { isDarkMode } = useTheme();
