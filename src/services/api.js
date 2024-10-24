@@ -1,35 +1,38 @@
 import axios from 'axios';
 
 const API_KEY = '1cf1f83d';
-const BASE_URL = 'http://www.omdbapi.com';
+const BASE_URL = 'https://www.omdbapi.com'; // Changed to https
 
-// Function to fetch movies list
 export const fetchMovies = async ({ searchTerm = '', page = 1 }) => {
   try {
+    console.log('Fetching movies with search term:', searchTerm); // Debug log
+    
     const response = await axios.get(BASE_URL, {
       params: {
         apikey: API_KEY,
-        s: searchTerm || 'marvel', // default search if no term provided
+        s: searchTerm || 'guardians', // Changed default search
         page: page,
         type: 'movie'
       }
     });
     
+    console.log('API Response:', response.data); // Debug log
+    
     if (response.data.Response === "True") {
       return {
         results: response.data.Search,
-        total_pages: Math.ceil(Number(response.data.totalResults) / 10),
+        totalResults: Number(response.data.totalResults),
         page: page,
       };
     } else {
       throw new Error(response.data.Error);
     }
   } catch (error) {
+    console.error('API Error:', error); // Debug log
     throw new Error(error.message || 'Failed to fetch movies');
   }
 };
 
-// Function to fetch movie details
 export const fetchMovieDetails = async (imdbID) => {
   try {
     const response = await axios.get(BASE_URL, {

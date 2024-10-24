@@ -1,46 +1,53 @@
 import axios from 'axios';
 
-const API_KEY = 'YOUR_TMDB_API_KEY'; // Get this from themoviedb.org
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = '1cf1f83d';
+const BASE_URL = 'https://www.omdbapi.com'; // Changed to https
 
-// Function to fetch movies list
-export const fetchMovies = async ({ page = 1, query = '', genre = '' }) => {
+export const fetchMovies = async ({ searchTerm = '', page = 1 }) => {
   try {
-    const endpoint = query
-      ? '/search/movie'
-      : '/movie/popular';
+    console.log('Fetching movies with search term:', searchTerm); // Debug log
     
-    const response = await axios.get(`${BASE_URL}${endpoint}`, {
+    const response = await axios.get(BASE_URL, {
       params: {
-        api_key: API_KEY,
-        language: 'en-US',
-        page,
-        query: query || undefined,
-        with_genres: genre || undefined,
+        apikey: API_KEY,
+        s: searchTerm || 'guardians', // Changed default search
+        page: page,
+        type: 'movie'
       }
     });
     
-    return {
-      results: response.data.results,
-      total_pages: response.data.total_pages,
-      page: response.data.page,
-    };
+    console.log('API Response:', response.data); // Debug log
+    
+    if (response.data.Response === "True") {
+      return {
+        results: response.data.Search,
+        totalResults: Number(response.data.totalResults),
+        page: page,
+      };
+    } else {
+      throw new Error(response.data.Error);
+    }
   } catch (error) {
-    throw new Error('Failed to fetch movies');
+    console.error('API Error:', error); // Debug log
+    throw new Error(error.message || 'Failed to fetch movies');
   }
 };
 
-// Function to fetch movie details
-export const fetchMovieDetails = async (movieId) => {
+export const fetchMovieDetails = async (imdbID) => {
   try {
-    const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
+    const response = await axios.get(BASE_URL, {
       params: {
-        api_key: API_KEY,
-        language: 'en-US'
+        apikey: API_KEY,
+        i: imdbID,
+        plot: 'full'
       }
     });
     
-    return response.data;
+    if (response.data.Response === "True") {
+      return response.data;
+    } else {
+      throw new Error(response.data.Error);
+    }
   } catch (error) {
     throw new Error('Failed to fetch movie details');
   }
